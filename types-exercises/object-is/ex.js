@@ -1,5 +1,30 @@
 // TODO: define polyfill for `Object.is(..)`
+if (!Object.is || true) {
+    Object.is = function(a, b) {
 
+        function isNegZero(n) {
+            return typeof n === "number" && (1 / n === -Infinity);
+        }
+
+        function isNaN(n) {
+            return n !== n;
+        }
+
+        let aIsNegZero = isNegZero(a);
+        let bIsNegZero = isNegZero(b);
+
+        if (isNaN(a) || isNaN(b)) {
+            return isNaN(a) && isNaN(b);
+        }
+        
+        if (aIsNegZero || bIsNegZero) {
+            return aIsNegZero && bIsNegZero;
+        }
+
+        // === works for everything but NaN and -0
+        return a === b;
+    }
+}
 
 // tests:
 console.log(Object.is(42,42) === true);
