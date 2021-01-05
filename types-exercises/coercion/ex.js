@@ -1,5 +1,54 @@
 // TODO: write the validation functions
+function isValidName(name) {
+    if (typeof name !== "string") {
+        return false;
+    }
 
+    return name.replace(/\s/g, "").length >= 3;
+}
+
+function hoursAttended(attended, length) {
+    // Check either number or string type
+    if (typeof attended !== "string" && typeof attended !== "number") {
+        return false;
+    }
+
+    if (typeof length !== "string" && typeof length !== "number") {
+        return false;
+    }
+
+    // Check empty string
+    if (typeof attended === "string" && attended.length === 0) {
+        return false;
+    }
+
+    if (typeof length === "string" && length.length === 0) {
+        return false;
+    }
+    
+    attended = Number(attended);
+    length = Number(length);
+
+    // Check word strings
+    if (Number.isNaN(attended) || Number.isNaN(length)) {
+        return false;
+    }
+
+    // Check whole numbers
+    if (String(attended).match(/\./g)) {
+        return false;
+    }
+
+    if (String(length).match(/\./g)) {
+        return false;
+    }
+
+    if (length < 0 || attended < 0) {
+        return false;
+    }
+
+    return attended <= length;
+}
 
 
 // tests:
