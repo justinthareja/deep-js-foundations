@@ -3,7 +3,7 @@ if (!Object.is || true) {
     Object.is = function(a, b) {
 
         function isNegZero(n) {
-            return typeof n === "number" && (1 / n === -Infinity);
+            return typeof n === 0 && (1 / n) === -Infinity;
         }
 
         function isNaN(n) {
