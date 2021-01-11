@@ -1,5 +1,47 @@
 // TODO: write `findAll(..)`
+function findAll(target, array) {
+	return array.filter((value) => {
+		if (Object.is(value, target)) {
+			return true;
+		}
 
+		if (target == null && value == null) {
+			return true;
+		}
+
+		if (
+			typeof target == "boolean" && 
+			typeof value == "boolean"
+		) {
+			return target == value;
+		}
+
+		if (
+			typeof target == "string" &&
+			target.trim() != "" &&
+			typeof value == "number" &&
+			!Object.is(value, NaN) &&
+			!Object.is(value, -0) &&
+			!Object.is(value, Infinity) &&
+			!Object.is(value, -Infinity) 
+		) {
+			return target == value;
+		}
+
+		if (
+			typeof value == "string" &&
+			value.trim() != "" &&
+			typeof target == "number" &&
+			!Object.is(target, NaN) &&
+			!Object.is(target, -0) &&
+			!Object.is(target, Infinity) &&
+			!Object.is(target, -Infinity)
+		) {
+			return target == value;
+		}
+
+	});
+}
 
 
 // tests:
