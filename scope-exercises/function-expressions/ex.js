@@ -1,13 +1,58 @@
-function printRecords(recordIds) {
-	// TODO
+function printRecords(recordIds = []) {
+	recordIds
+		.map(getStudentById)
+		.sort(byName)
+		.forEach(printRecord);
 }
 
 function paidStudentsToEnroll() {
-	// TODO
+	var students = studentRecords
+		.filter(function getRecordPaid(record) {
+			return record.paid;
+		})
+		.map(function getStudentId(student) {
+			return student.id
+		});
+
+	return [
+		...students,
+		...currentEnrollment
+	];
 }
 
 function remindUnpaid(recordIds) {
-	// TODO
+	let unpaidStudents = recordIds.filter(function (id) {
+		let student = getStudentById(id);
+		return student && student.paid === false;
+	});
+
+	printRecords(unpaidStudents);
+}
+
+
+function byName(a, b) {
+	var nameA = a.name.toUpperCase();
+	var nameB = b.name.toUpperCase();
+
+	if (nameA > nameB) {
+		return 1;
+	}
+
+	if (nameA < nameB) {
+		return -1;
+	}
+
+	return 0;
+}
+
+function printRecord({ name, id, paid }) {
+	console.log(`${name} (${id}): ${paid ? "Paid" : "Not Paid"}`);
+}
+
+function getStudentById(id) {
+	return studentRecords.find(function (record) {
+		return record.id == id;
+	});
 }
 
 
